@@ -1,0 +1,60 @@
+* {margin: 0; padding: 0;}
+
+body {
+	background: #1a1917;
+}
+
+.container {
+	width: 100%;
+}
+
+.list {
+	display: table;
+	margin: 0 auto;
+}
+
+.item {
+	width: 242px;
+	min-height: 500px;
+	background: #48433f;
+	float: left;
+	margin-left: 25px;
+	margin-bottom: 25px;
+	color: #fff;
+	text-align: center;
+}
+
+.system {
+	background: #625242;
+}
+
+/**
+ * Heighs
+ */
+.mh7 {
+	min-height: 700;
+}
+
+.mh6 {
+	min-height: 600;
+}
+
+.mh5 {
+	min-height: 500;
+}
+
+.mh4 {
+	min-height: 400;
+}
+
+.mh3 {
+	min-height: 400;
+}
+
+.mh2 {
+	min-height: 400;
+}
+
+.mh1 {
+	min-height: 400;
+}
