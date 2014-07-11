@@ -66,10 +66,12 @@
 						j++;
 					}
 
-					$items.eq(i).attr('data-pos', i+j).text(i+j);
+					$items.eq(i).attr('data-pos', i+j);//.text(i+j)
 				}
 
-				$this.find('[data-align="right-top"]').attr('data-pos', rtp).text(rtp);
+				//detect if last element is not with align and swap
+
+				$this.find('[data-align="right-top"]').attr('data-pos', rtp);//.text(rtp)
 			};
 
 			reindexPositions();
