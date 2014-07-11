@@ -9,7 +9,8 @@ body {
 }
 
 .list {
-	display: table;
+	/* dont work in firefox */
+	/*display: table;*/
 	margin: 0 auto;
 }
 
