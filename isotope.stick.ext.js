@@ -54,12 +54,23 @@
 
 				return Math.floor(calculateParentWidth() / calculateElementMinWidth() - 1);
 			};
+			var getParentWidth = function() {
+				var pw = parseInt($items.eq(0).css('margin-left'));
+
+				$items.each(function() {
+					if(parseInt($(this).css('top')) == 0) {
+						pw += $(this).outerWidth(true);
+					}
+				});
+
+				return pw;
+			};
 			var reindexPositions = function() {
 				var rtp = getRightPosition();
 
 				for(var i=0, j = 0;i<$items.length;i++) {
 					if(i < rtp && $items.eq(i).outerWidth(true) > calculateElementMinWidth()) {
-						rtp -= 1;
+						rtp--;
 					}
 
 					if(rtp == i) {
@@ -70,14 +81,26 @@
 				}
 
 				//detect if last element is not with align and swap
-
 				$this.find('[data-align="right-top"]').attr('data-pos', rtp);//.text(rtp)
 			};
-
+			
 			reindexPositions();
 			$this.isotope(opts);
 
+			if(opts.isSetParentWidth) {
+				$this.css('width', getParentWidth());
+
+				$this.isotope('on', 'layoutComplete', function() {
+					$this.css('width', getParentWidth());
+				});
+			}
+
 			$(window).resize(function() {
+				
+				if(opts.isSetParentWidth) {
+					$this.css('width', '');
+				}
+
 				reindexPositions();
 				$this.isotope('updateSortData').isotope();
 				$this.isotope({
@@ -88,8 +111,8 @@
 	}
 
 	$.fn.isotopeStick.defaults = {
-
-	}
+		isSetParentWidth: false
+	};
 
 	$.fn.isotopeStick.prior = {
 		getSortData: {
