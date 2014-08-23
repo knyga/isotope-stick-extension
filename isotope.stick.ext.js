@@ -93,6 +93,18 @@
 				$this.find('[data-align="right-top"]').attr('data-pos', rtp); //.text(rtp);
 				
 			};
+
+			var update = function() {
+				if(opts.isSetParentWidth) {
+					$this.css('width', '');
+				}
+
+				reindexPositions();
+				$this.isotope('updateSortData').isotope();
+				$this.isotope({
+					sortBy: 'pos'
+				});
+			};
 			
 			reindexPositions();
 			$this.isotope(opts);
@@ -105,20 +117,10 @@
 				});
 			}
 
-			$(window).resize(function() {
-				
-				if(opts.isSetParentWidth) {
-					$this.css('width', '');
-				}
-
-				reindexPositions();
-				$this.isotope('updateSortData').isotope();
-				$this.isotope({
-					sortBy: 'pos'
-				});
-			});
+			$(window).resize(update);
+			$(document).ready(update);
 		});
-	}
+	};
 
 	$.fn.isotopeStick.defaults = {
 		isSetParentWidth: false
