@@ -80,16 +80,17 @@
 					$items.eq(i).attr('data-pos', i+j);//.text(i+j)
 				}
 
+				//replacement rule for double element
 				var $bi = $this.find('[data-pos="'+(rtp+1)+'"]');
 				var biOuterWidth = $bi.outerWidth(true);
 				if($bi.length > 0 && biOuterWidth > calculateElementMinWidth()
 					&& calculateParentWidth() > biOuterWidth*2) {
 					rtp++;
-					$this.find('[data-pos="'+(rtp+1)+'"]').attr('data-pos', rtp-1).text(rtp-1);
+					$this.find('[data-pos="'+(rtp+1)+'"]').attr('data-pos', rtp-1); //.text(rtp-1);
 				}
 
 				//detect if last element is not with align and swap
-				$this.find('[data-align="right-top"]').attr('data-pos', rtp).text(rtp);
+				$this.find('[data-align="right-top"]').attr('data-pos', rtp); //.text(rtp);
 				
 			};
 			
