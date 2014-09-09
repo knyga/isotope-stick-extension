@@ -72,6 +72,7 @@
 
 				return pw;
 			};
+			var isFirst = true;
 			var reindexPositions = function() {
 				var rtp = getRightPosition();
 
@@ -94,6 +95,11 @@
 					&& calculateParentWidth() > biOuterWidth*2) {
 					rtp++;
 					$this.find('[data-pos="'+(rtp+1)+'"]').attr('data-pos', rtp-1); //.text(rtp-1);
+				}
+
+				if(isFirst) {
+					rtp++;
+					isFirst = false;
 				}
 
 				//detect if last element is not with align and swap
