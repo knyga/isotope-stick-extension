@@ -11,6 +11,13 @@
 			var $items = $this.children();
 			 var itemMinWidth = -1;
 
+			var updateMargin = function($el) {
+				var width = $el.width(),
+					pWidth = $el.parent().width();
+				$el.css({
+					'margin-left': (pWidth-width)/2
+				});
+			};
 			var calculateElementMinWidth = function() {
 				if(-1 == itemMinWidth) {
 					itemMinWidth = $items.first().outerWidth(true);
@@ -54,7 +61,7 @@
 
 				return Math.floor(calculateParentWidth() / calculateElementMinWidth() - 1);
 			};
-			var getParentWidth = function() {
+			var getWidth = function() {
 				var pw = parseInt($items.eq(0).css('margin-left'));
 
 				$items.each(function() {
@@ -95,8 +102,12 @@
 			};
 
 			var update = function() {
-				if(opts.isSetParentWidth) {
+				if(opts.isSetWidth) {
 					$this.css('width', '');
+				}
+
+				if(opts.isSetParentWidth) {
+					$this.parent().css('width', '');
 				}
 
 				reindexPositions();
@@ -109,11 +120,27 @@
 			reindexPositions();
 			$this.isotope(opts);
 
-			if(opts.isSetParentWidth) {
-				$this.css('width', getParentWidth());
+			if(opts.isSetWidth) {
+				$this.css('width', getWidth());
 
 				$this.isotope('on', 'layoutComplete', function() {
-					$this.css('width', getParentWidth());
+					$this.css('width', getWidth());
+				});
+			}
+
+			if(opts.isSetParentWidth) {
+				$this.parent().css('width', getWidth());
+
+				if(opts.isMarginParentCenter) {
+					updateMargin($this.parent());
+				}
+
+				$this.isotope('on', 'layoutComplete', function() {
+					$this.parent().css('width', getWidth());
+
+					if(opts.isMarginParentCenter) {
+						updateMargin($this.parent());
+					}
 				});
 			}
 
@@ -123,7 +150,9 @@
 	};
 
 	$.fn.isotopeStick.defaults = {
-		isSetParentWidth: false
+		isSetWidth: false,
+		isSetParentWidth: false,
+		isMarginParentCenter: false
 	};
 
 	$.fn.isotopeStick.prior = {
